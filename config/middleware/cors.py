@@ -9,7 +9,7 @@ class corsMiddleware:
 
         print("CORS MIDDLEWARE")
         response = self.get_response(request)
-        # response["Access-Control-Allow-Methods"] = "OPTIONS"
+        response["Access-Control-Allow-Methods"] = "OPTIONS"
 
         # Code to be executed for each request/response after
         # the view is called.
