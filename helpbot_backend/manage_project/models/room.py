@@ -1,13 +1,14 @@
 import os
 import random
+import re
 from datetime import datetime
 
+import environ
 from common.models import CreatedUpdatedDateModel
 from django.db import models
-from dotenv import load_dotenv
 from matrix_client.client import MatrixClient
 
-load_dotenv()
+env = environ.Env()
 
 
 class Room(CreatedUpdatedDateModel):
@@ -19,18 +20,24 @@ class Room(CreatedUpdatedDateModel):
     def __str__(self):
         return self.name
 
+    def create_name(self):
+        num = random.randint(0, 100)
+        now = datetime.now().strftime("%H%M%S")
+        project = self.project.name
+        name = f"{project}{now}{num}"
+        return re.sub(r"[^a-zA-Z0-9]", "", name)
+
     def create_room(self, name):
-        client = MatrixClient(os.getenv("SERVER_URL"))
-        client.login(username=os.getenv("MATRIX_USER"), password=os.getenv("MATRIX_PASSWORD"))
+        client = MatrixClient(os.environ["SERVER_URL"])
+        client.login(username=os.environ["MATRIX_USER"], password=os.environ["MATRIX_PASSWORD"])
         room = client.create_room(self.name, is_public=True)
-        print("Public room created with ID:", room.room_id)
         return dict(name=room.display_name, id=room.room_id)
 
     def save(self, *args, **kwargs):
-        num = random.random()
-        now = datetime.now()
-        room_infor = self.create_room("{}{}{}".format(self.project.name.replace(" ", ""), now.strftime("%H%M%S"), num))
-        if room_infor["id"]:
+        if not self.id_synapse:
+            self.name = self.create_name()
+
+            room_infor = self.create_room(self.name)
             self.id_synapse = room_infor["id"]
-            self.name = room_infor["name"]
+
             super().save(*args, **kwargs)
