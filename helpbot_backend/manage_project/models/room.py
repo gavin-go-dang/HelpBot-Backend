@@ -30,6 +30,7 @@ class Room(CreatedUpdatedDateModel):
         num = random.random()
         now = datetime.now()
         room_infor = self.create_room("{}{}{}".format(self.project.name.replace(" ", ""), now.strftime("%H%M%S"), num))
-        self.id_synapse = room_infor["id"]
-        self.name = room_infor["name"]
-        super().save(*args, **kwargs)
+        if room_infor["id"]:
+            self.id_synapse = room_infor["id"]
+            self.name = room_infor["name"]
+            super().save(*args, **kwargs)
