@@ -2,6 +2,7 @@
 Base settings to build other settings files upon.
 """
 import datetime
+import os
 from pathlib import Path
 
 import environ
@@ -382,3 +383,8 @@ CORS_ALLOW_HEADERS = (
 CORS_EXPOSE_HEADERS = [
     "content-type",
 ]
+
+
+SERVER_URL = os.environ["SERVER_URL"]
+MATRIX_USER = os.environ["MATRIX_USER"]
+MATRIX_PASSWORD = os.environ["MATRIX_PASSWORD"]

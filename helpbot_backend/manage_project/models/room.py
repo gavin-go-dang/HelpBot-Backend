@@ -1,14 +1,11 @@
-import os
 import random
 import re
 from datetime import datetime
 
-import environ
 from common.models import CreatedUpdatedDateModel
+from django.conf import settings
 from django.db import models
 from matrix_client.client import MatrixClient
-
-env = environ.Env()
 
 
 class Room(CreatedUpdatedDateModel):
@@ -28,8 +25,8 @@ class Room(CreatedUpdatedDateModel):
         return re.sub(r"[^a-zA-Z0-9]", "", name)
 
     def create_room(self, name):
-        client = MatrixClient(os.environ["SERVER_URL"])
-        client.login(username=os.environ["MATRIX_USER"], password=os.environ["MATRIX_PASSWORD"])
+        client = MatrixClient(settings.SERVER_URL)
+        client.login(username=settings.MATRIX_USER, password=settings.MATRIX_PASSWORD)
         room = client.create_room(self.name, is_public=True)
         return dict(name=room.display_name, id=room.room_id)
 
