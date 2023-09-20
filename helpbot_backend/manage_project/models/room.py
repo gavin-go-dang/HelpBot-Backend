@@ -1,10 +1,13 @@
+import os
 import random
 from datetime import datetime
 
 from common.models import CreatedUpdatedDateModel
 from django.db import models
+from dotenv import load_dotenv
+from matrix_client.client import MatrixClient
 
-from ..create_room import create_room
+load_dotenv()
 
 
 class Room(CreatedUpdatedDateModel):
@@ -16,10 +19,17 @@ class Room(CreatedUpdatedDateModel):
     def __str__(self):
         return self.name
 
+    def create_room(self, name):
+        client = MatrixClient(os.getenv("SERVER_URL"))
+        client.login(username=os.getenv("MATRIX_USER"), password=os.getenv("MATRIX_PASSWORD"))
+        room = client.create_room(self.name, is_public=True)
+        print("Public room created with ID:", room.room_id)
+        return dict(name=room.display_name, id=room.room_id)
+
     def save(self, *args, **kwargs):
         num = random.random()
         now = datetime.now()
-        room_infor = create_room("{}{}{}".format(self.project.name.replace(" ", ""), now.strftime("%H%M%S"), num))
+        room_infor = self.create_room("{}{}{}".format(self.project.name.replace(" ", ""), now.strftime("%H%M%S"), num))
         self.id_synapse = room_infor["id"]
         self.name = room_infor["name"]
         super().save(*args, **kwargs)
