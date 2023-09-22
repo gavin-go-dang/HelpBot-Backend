@@ -20,7 +20,7 @@ class Room(CreatedUpdatedDateModel):
     def create_name(self):
         num = random.randint(0, 100)
         now = datetime.now().strftime("%H%M%S")
-        project = self.project.name
+        project = self.project
         name = f"{project}{now}{num}"
         return re.sub(r"[^a-zA-Z0-9]", "", name)
 
