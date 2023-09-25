@@ -14,3 +14,18 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
+
+
+class EmailSerializer(serializers.Serializer):
+    email_address = serializers.EmailField()
+
+
+class ClerkCreateUserSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    email = serializers.EmailField()
+    last_name = serializers.CharField()
+    first_name = serializers.CharField()
+
+    def create(self, validated_data):
+        user = User.objects.create(**validated_data)
+        return user
