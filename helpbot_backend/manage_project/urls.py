@@ -11,5 +11,5 @@ router.register("room", RoomAPI, basename="room")
 router.register("project", ProjectAPI, basename="project")
 
 urlpatterns += [
-    path("v1/", include(router.urls)),
+    path("", include(router.urls)),
 ]
