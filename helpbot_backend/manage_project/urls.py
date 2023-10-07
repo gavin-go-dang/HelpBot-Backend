@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from helpbot_backend.manage_project.views import ProjectAPI, RoomAPI, AnswerAPI, QuestionAPI
+from helpbot_backend.manage_project.views import AnswerAPI, ProjectAPI, QuestionAPI, RoomAPI
 
 app_name = "manage_project"
 urlpatterns = []

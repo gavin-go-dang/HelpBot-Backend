@@ -7,4 +7,3 @@ class Project(CreatedUpdatedDateModel):
     owner = models.CharField(max_length=100, blank=True, null=True)
     chatbot = models.CharField(max_length=100, blank=True, null=True)
     script_QA = models.JSONField(null=True, blank=True)
-

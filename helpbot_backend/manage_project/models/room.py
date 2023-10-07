@@ -1,12 +1,13 @@
 import random
 import re
-from datetime import datetime
 import threading
+from datetime import datetime
 
 from common.models import CreatedUpdatedDateModel
 from django.conf import settings
 from django.db import models
 from matrix_client.client import MatrixClient
+
 from .chat_bot import turn_on_chatbot
 
 
