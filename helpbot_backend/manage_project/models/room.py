@@ -1,11 +1,13 @@
 import random
 import re
 from datetime import datetime
+import threading
 
 from common.models import CreatedUpdatedDateModel
 from django.conf import settings
 from django.db import models
 from matrix_client.client import MatrixClient
+from .chat_bot import turn_on_chatbot
 
 
 class Room(CreatedUpdatedDateModel):
@@ -33,8 +35,10 @@ class Room(CreatedUpdatedDateModel):
     def save(self, *args, **kwargs):
         if not self.id_synapse:
             self.name = self.create_name()
-
+            script = self.project.script_QA
             room_infor = self.create_room(self.name)
             self.id_synapse = room_infor["id"]
+            chatbot_thread = threading.Thread(target=turn_on_chatbot, args=(room_infor["id"], script))
+            chatbot_thread.start()
 
             super().save(*args, **kwargs)

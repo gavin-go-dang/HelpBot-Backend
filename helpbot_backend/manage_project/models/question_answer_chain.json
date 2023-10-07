@@ -1,0 +1,37 @@
+[
+    {
+        "question": "What do you need?",
+        "answer": [
+            "Shoes",
+            "Water",
+            "Rice"
+        ],
+        "next": [
+            1,
+            2,
+            3
+        ]
+    },
+    {
+        "question": "How many pair do you need?",
+        "answer": null,
+        "next": [
+            4
+        ]
+    },
+    {
+        "question": "What brand do you like?",
+        "answer": null,
+        "next": null
+    },
+    {
+        "question": "How many kilos do you need?",
+        "answer": null,
+        "next": null
+    },
+    {
+        "question": "Choose your color: Red, White, Black",
+        "answer": null,
+        "next": null
+    }
+]
