@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 
 import matrix_client.api
@@ -52,8 +51,8 @@ def turn_on_chatbot(room_id, script):
                             room.send_text(f"{now}-{questions[current_question_id[0]]}")
                             if next_question[current_question_id]:
                                 room.send_text("Your order was created successful")
-                    except:
-                        pass
+                    except NameError:
+                        print("Variable x is not defined")
 
     room.add_listener(on_message, event_type="m.room.message")
 

@@ -7,7 +7,7 @@ from .models import Answer, Project, Question, Room
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "owner", "created_at")
     fieldsets = [
-        (None, {"fields": [("name"), ("owner"), ("script_QA")]}),
+        (None, {"fields": [("name"), ("owner"), ("script_QA"), ("flow_chart"), ("style_widget"), ("avt_img")]}),
     ]
     search_fields = ("name",)
 
@@ -25,7 +25,7 @@ class RoomAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ("id", "question_text", "project", "pre_answer")
     fieldsets = [
-        (None, {"fields": [("question_text"), ("project"), ("pre_answer")]}),
+        (None, {"fields": [("id"), ("question_text"), ("project"), ("pre_answer")]}),
     ]
 
 
