@@ -1,9 +1,14 @@
 def flow_to_script(JSON1):
     def get_question(node):
+        question = ""
         if node["type"] == "choiceUpdater":
-            return node["data"]["question"]["question"]["question"]
+            question = node["data"]["question"]["question"]["question"]
+
+            return question
         else:
-            return node["data"]["question"]["question"]
+            question = node["data"]["question"]["question"]
+
+            return question
 
     def get_answer(node):
         if node["type"] == "choiceUpdater":
@@ -25,6 +30,7 @@ def flow_to_script(JSON1):
 
     list_chain = []
     JSON1_dict = JSON1
+    print(JSON1_dict)
     for node in JSON1_dict["nodes"]:
         list_chain.append(
             {
