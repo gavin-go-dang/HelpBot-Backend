@@ -11,9 +11,10 @@ class ProjectAPI(viewsets.ModelViewSet):
     queryset = Project.objects.all()
 
     def update(self, request, *args, **kwargs):
-        # print("Received data in PUT request:", request.data)
-        script = convert_flow_chart(request.data["flow_chart"])
-        request.data["script_QA"] = script
+        script = {}
+        if "flow_chart" in request.data and request.data["flow_chart"]:
+            script = convert_flow_chart(request.data["flow_chart"])
+            request.data["script_QA"] = script
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
 
