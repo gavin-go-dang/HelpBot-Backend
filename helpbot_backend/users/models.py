@@ -12,12 +12,6 @@ class User(AbstractUser):
     check forms.SignupForm and forms.SocialSignupForms accordingly.
     """
 
-    # TYPE_USER = (
-    #     ("free", "Free"),
-    #     ("standard", "Standard"),
-    #     ("agency", "Agency")
-    # )
-    # First and last name do not cover name patterns around the globe
     name = CharField(_("Name of User"), blank=True, max_length=255)
     phone_number = models.CharField(blank=True, null=True)
 
