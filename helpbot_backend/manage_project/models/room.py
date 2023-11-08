@@ -3,10 +3,11 @@ import re
 import threading
 from datetime import datetime
 
-from common.models import CreatedUpdatedDateModel
 from django.conf import settings
 from django.db import models
 from matrix_client.client import MatrixClient
+
+from helpbot_backend.common.models import CreatedUpdatedDateModel
 
 from .chat_bot import turn_on_chatbot
 
