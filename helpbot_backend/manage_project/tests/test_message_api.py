@@ -16,7 +16,6 @@ class MessageAPITestCase(APITestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # Kiểm tra xem dữ liệu phản hồi có khớp với dữ liệu mong đợi từ cơ sở dữ liệu hay không
         expected_data = AnswerSerializers([self.message1, self.message2], many=True).data
         self.assertEqual(response.data, expected_data)
 
@@ -25,5 +24,4 @@ class MessageAPITestCase(APITestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        # Kiểm tra xem tin nhắn có bị xóa khỏi cơ sở dữ liệu hay không
         self.assertFalse(Message.objects.filter(id=self.message1.id).exists())
