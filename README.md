@@ -132,7 +132,7 @@ DNS_SENTRY=
 
 ## 7. Set up Clerk
 
-Flow this docs, set up endpoint webhook with endpoint `your_backend_domain/users/api/clerk-create/`
+Flow [_Clerk document_](https://clerk.com/docs), set up endpoint webhook with endpoint `your_backend_domain/users/api/clerk-create/`
 
 # Project status
 
