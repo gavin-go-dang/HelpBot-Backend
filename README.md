@@ -1,33 +1,54 @@
 # HelpBot-Backend
 
-Behold My Awesome Project!
+The Helpbot service leverages Matrix-Synapse, a powerful open-source communication protocol, to serve as the backbone of its chat service. This robust combination ensures secure, real-time messaging capabilities for seamless interactions between users and the chatbot .
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+# Table content
 
-## Settings
+## [General Information](#general-information)
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+- [Introduce](#introduce)
 
-## Basic Commands
+* [Matrix-Synapse Server Chat Workflow](#matrix-synapse-server-chat-workflow)
 
-### Setting Up Your Users
+- [Sysem workflow](#system-workflow)
+- [Database diagram](#database-diagram)
+- [Test Coverage](#test-coverage)
+- [Features](#features)
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+## [Deployment](#deployment)
 
-- To create a **superuser account**, use this command:
+- [Clone this repository](#1-clone-this-repository)
+- [Set up .env file at root project folder base on example.env file](#2-set-up-env-file-at-root-project-folder-base-on-exampleenv-file)
+- [Set up enviroment](#3-set-up-enviroment)
+- [Run server](#6-run-server)
 
-      $ python manage.py createsuperuser
+## [Status](#status)
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+## [Contact](#contact)
 
-### Type checks
+# General Information
 
-Running type checks with mypy:
+## Introduce
 
-    $ mypy helpbot_backend
+- This project serves as the robust foundation for implementing a real-time chat service in your website. Built on the powerful Django framework, this backend provides a secure and scalable solution for handling chat functionality. The authentication process is carried out with the Clerk service, providing enhanced security for users' personal data, protecting it from potential server attacks.
 
-### Test coverage
+## Workflow
+
+### Matrix-Synapse Server Chat Workflow
+
+![Chat flow](/readme_img/matrix_synapse.png)
+
+### System Workflow
+
+![Work flow](/readme_img/system_work_flow.png)
+
+### Database Diagram
+
+Database diagram link: [_here_](https://www.mermaidchart.com/raw/2f76a97a-6dbc-4f46-a8ea-ad516bb257db?theme=light&version=v0.1&format=svg).
+
+![Database diagram](/readme_img/dbdiagram.png)
+
+## Test coverage
 
 To run the tests, check your test coverage, and generate an HTML coverage report:
 
@@ -35,61 +56,88 @@ To run the tests, check your test coverage, and generate an HTML coverage report
     $ coverage html
     $ open htmlcov/index.html
 
-#### Running tests with pytest
+### Result
 
-    $ pytest
+![Unittest](/readme_img/unittest.png)
 
-### Live reloading and Sass CSS compilation
+## Technology Used
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+- Python - Version 3.10.12
+- Django - Version 4.2.4
+- Postgres - Version 13.4
+- Django REST framework - Version 3.14.0
+- Matrix-client - Version 0.4.0
+- Pre-commit Python Flake8 - Version 6.1.0
+- Pre-commit Python black - Version 23.7.0
+- Clerk
 
-### Celery
+## Features
 
-This app comes with Celery.
+List the ready features here:
 
-To run a celery worker:
+- Create bot chat with script
+- Change style widget chat
+- Embedding widget chat to other websites
+- Mornitoring Chat bot
+- Managing account
 
-```bash
-cd helpbot_backend
-celery -A config.celery_app worker -l info
+## Clerk - Webhook endpoint
+
+In this project, Clerk is utilized for authentication purposes. It serves as a connection point where Clerk can send notifications or data related to important events such as user authentication, account information changes, or other events related to personal data.
+
+The Clerk Webhook Endpoint plays a crucial role in maintaining a secure and continuous connection between your application and the Clerk service, enabling seamless and secure data handling.
+
+Absolutely, utilizing Clerk helps to mitigate the risk to customer's personal information in case of server attacks or disruptions.
+
+# Deployment
+
+## 1. Clone this repository
+
+    $ git clone https://github.com/gavin-go-dang/HelpBot-Backend.git
+
+## 2. Set up .env file at root project folder base on **example.env** file
+
+```
+DATABASE_URL=
+CELERY_BROKER_URL=
+USE_DOCKER=
+
+SERVER_URL=
+MATRIX_USER=
+MATRIX_PASSWORD=
+
+HOMESERVER_USERNAME=
+HOMESERVER_PASSWORD=
+
+DNS_SENTRY=
 ```
 
-Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
+## 3. Set up enviroment
 
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+    $ virtualenv env
+    $ source env/bin/active
+    $ pip install -r requirements/local.txt
 
-```bash
-cd helpbot_backend
-celery -A config.celery_app beat
-```
+## 4. Run the migrations
 
-or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
+    $ python3 manage.py migrate
 
-```bash
-cd helpbot_backend
-celery -A config.celery_app worker -B -l info
-```
+## 5. Load data
 
-### Email Server
+    $ python3 manage.py loaddata data_sample.json
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [MailHog](https://github.com/mailhog/MailHog) with a web interface is available as docker container.
+## 6. Run Server
 
-Container mailhog will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
+    $ python3 manage.py runserver
 
-With MailHog running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+## 7. Set up Clerk
 
-### Sentry
+Flow [_Clerk document_](https://clerk.com/docs), set up endpoint webhook with endpoint `your_backend_domain/users/api/clerk-create/`
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
+# Project status
 
-You must set the DSN url in production.
+Status: in progress
 
-## Deployment
+# Contact
 
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+Feel free to contact me! - Email: gavin.dang.goldenowl@gmail.com
