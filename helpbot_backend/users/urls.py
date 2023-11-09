@@ -1,14 +1,17 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from helpbot_backend.users.views import (
-    user_detail_view,
-    user_redirect_view,
-    user_update_view,
-)
+from helpbot_backend.users.views import ClerkCreateUser, CreateUser
 
 app_name = "users"
 urlpatterns = [
-    path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("clerk-create/", ClerkCreateUser.as_view(), name="clerk-create"),
 ]
+
+
+router = DefaultRouter()
+router.register("v1/create", CreateUser, basename="create")
+urlpatterns += router.urls

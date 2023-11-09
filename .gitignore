@@ -279,3 +279,4 @@ helpbot_backend/media/
 .env
 .envs/*
 .envs/.local/
+launch.json
