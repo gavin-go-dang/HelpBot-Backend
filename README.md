@@ -2,13 +2,14 @@
 
 The Helpbot service leverages Matrix-Synapse, a powerful open-source communication protocol, to serve as the backbone of its chat service. This robust combination ensures secure, real-time messaging capabilities for seamless interactions between users and the chatbot .
 
-
 # Table content
 
 ## [General Information](#general-information)
 
 - [Introduce](#introduce)
+
 * [Matrix-Synapse Server Chat Workflow](#matrix-synapse-server-chat-workflow)
+
 - [Sysem workflow](#system-workflow)
 - [Database diagram](#database-diagram)
 - [Test Coverage](#test-coverage)
@@ -81,6 +82,7 @@ List the ready features here:
 - Managing account
 
 ## Clerk - Webhook endpoint
+
 In this project, Clerk is utilized for authentication purposes. It serves as a connection point where Clerk can send notifications or data related to important events such as user authentication, account information changes, or other events related to personal data.
 
 The Clerk Webhook Endpoint plays a crucial role in maintaining a secure and continuous connection between your application and the Clerk service, enabling seamless and secure data handling.
@@ -129,7 +131,8 @@ DNS_SENTRY=
     $ python3 manage.py runserver
 
 ## 7. Set up Clerk
- Flow this docs, set up endpoint webhook with endpoint  `your_domain/users/api/clerk-create/`
+
+Flow this docs, set up endpoint webhook with endpoint `your_backend_domain/users/api/clerk-create/`
 
 # Project status
 
