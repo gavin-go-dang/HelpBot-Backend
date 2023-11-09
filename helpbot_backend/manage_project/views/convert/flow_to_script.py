@@ -1,21 +1,22 @@
+import json
+
+
 def flow_to_script(JSON1):
+    list_chain = []
+
     def get_question(node):
-        question = ""
+        # breakpoint()
         if node["type"] == "choiceUpdater":
-            question = node["data"]["question"]["question"]["question"]
-
-            return question
+            return json.loads(node["data"]["question"])["question"]["question"]
         else:
-            question = node["data"]["question"]["question"]
-
-            return question
+            return json.loads(node["data"]["question"])["question"]
 
     def get_answer(node):
         if node["type"] == "choiceUpdater":
             return [
-                node["data"]["question"]["question"]["answer1"],
-                node["data"]["question"]["question"]["answer2"],
-                node["data"]["question"]["question"]["answer3"],
+                json.loads(node["data"]["question"])["question"]["answer1"],
+                json.loads(node["data"]["question"])["question"]["answer2"],
+                json.loads(node["data"]["question"])["question"]["answer3"],
             ]
 
         else:
@@ -28,16 +29,13 @@ def flow_to_script(JSON1):
                 next.append(edge["target"])
         return next
 
-    list_chain = []
-    JSON1_dict = JSON1
-    print(JSON1_dict)
-    for node in JSON1_dict["nodes"]:
+    for node in JSON1["nodes"]:
         list_chain.append(
             {
                 "id": node["id"],
                 "question": get_question(node),
                 "answer": get_answer(node),
-                "next": get_next(node, JSON1_dict["edges"]),
+                "next": get_next(node, JSON1["edges"]),
             }
         )
 

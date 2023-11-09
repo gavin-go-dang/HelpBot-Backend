@@ -1,5 +1,6 @@
-from common.models import CreatedUpdatedDateModel
 from django.db import models
+
+from helpbot_backend.common.models import CreatedUpdatedDateModel
 
 
 class Question(CreatedUpdatedDateModel):

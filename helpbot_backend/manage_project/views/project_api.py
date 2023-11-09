@@ -17,7 +17,6 @@ class ProjectAPI(viewsets.ModelViewSet):
             request.data["script_QA"] = script
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
-
         if serializer.is_valid():
             serializer.save()
 

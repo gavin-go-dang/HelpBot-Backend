@@ -1,8 +1,9 @@
 import random
 import string
 
-from common.models import CreatedUpdatedDateModel
 from django.db import models
+
+from helpbot_backend.common.models import CreatedUpdatedDateModel
 
 
 def generate_random_string():
