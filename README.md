@@ -29,7 +29,7 @@ The Helpbot service leverages Matrix-Synapse, a powerful open-source communicati
 
 ## Introduce
 
-- This project serves as the robust foundation for implementing a real-time chat service in your website. Built on the powerful Django framework, this backend provides a secure and scalable solution for handling chat functionality.
+- This project serves as the robust foundation for implementing a real-time chat service in your website. Built on the powerful Django framework, this backend provides a secure and scalable solution for handling chat functionality. The authentication process is carried out with the Clerk service, providing enhanced security for users' personal data, protecting it from potential server attacks.
 
 ## Workflow
 
@@ -57,7 +57,7 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 
 ### Result
 
-![Unittest](/readme_img/unittest.png))
+![Unittest](/readme_img/unittest.png)
 
 ## Technology Used
 
@@ -68,6 +68,7 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 - Matrix-client - Version 0.4.0
 - Pre-commit Python Flake8 - Version 6.1.0
 - Pre-commit Python black - Version 23.7.0
+- Clerk
 
 ## Features
 
@@ -78,6 +79,13 @@ List the ready features here:
 - Embedding widget chat to other websites
 - Mornitoring Chat bot
 - Managing account
+
+## Clerk - Webhook endpoint
+In this project, Clerk is utilized for authentication purposes. It serves as a connection point where Clerk can send notifications or data related to important events such as user authentication, account information changes, or other events related to personal data.
+
+The Clerk Webhook Endpoint plays a crucial role in maintaining a secure and continuous connection between your application and the Clerk service, enabling seamless and secure data handling.
+
+Absolutely, utilizing Clerk helps to mitigate the risk to customer's personal information in case of server attacks or disruptions.
 
 # Deployment
 
@@ -112,13 +120,16 @@ DNS_SENTRY=
 
     $ python3 manage.py migrate
 
-## 5. Load data:
+## 5. Load data
 
     $ python3 manage.py loaddata data_sample.json
 
 ## 6. Run Server
 
     $ python3 manage.py runserver
+
+## 7. Set up Clerk
+ Flow this docs, set up endpoint webhook with endpoint  `your_domain/users/api/clerk-create/`
 
 # Project status
 
