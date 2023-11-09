@@ -1,6 +1,7 @@
 # HelpBot-Backend
 
-Third party Chat service
+The Helpbot service leverages Matrix-Synapse, a powerful open-source communication protocol, to serve as the backbone of its chat service. This robust combination ensures secure, real-time messaging capabilities for seamless interactions between users and the chatbot .
+
 
 # Table content
 
