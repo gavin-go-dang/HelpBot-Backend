@@ -29,9 +29,11 @@ class Room(CreatedUpdatedDateModel):
         return re.sub(r"[^a-zA-Z0-9]", "", name)
 
     def create_room(self, name):
+        print("waiting...")
         client = MatrixClient(settings.SERVER_URL)
         client.login(username=settings.MATRIX_USER, password=settings.MATRIX_PASSWORD)
         room = client.create_room(self.name, is_public=True)
+        print("completed!")
         return dict(name=room.display_name, id=room.room_id)
 
     def save(self, *args, **kwargs):
@@ -42,5 +44,4 @@ class Room(CreatedUpdatedDateModel):
             self.id_synapse = room_infor["id"]
             chatbot_thread = threading.Thread(target=turn_on_chatbot, args=(room_infor["id"], script))
             chatbot_thread.start()
-
             super().save(*args, **kwargs)

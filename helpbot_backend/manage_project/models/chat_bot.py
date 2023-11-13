@@ -16,9 +16,9 @@ def turn_on_chatbot(room_id, script):
     homeserver_url = settings.SERVER_URL
     username = settings.HOMESERVER_USERNAME
     password = settings.HOMESERVER_PASSWORD
-    print("0")
+    print("create thread")
     print(room_id)
-    # Khởi tạo client Matrix
+    # create client matrix
     client = MatrixClient(homeserver_url)
     client.login(username=username, password=password)
     print("singed in")
@@ -39,29 +39,29 @@ def turn_on_chatbot(room_id, script):
             message = message_body.split(":")[-1]
             print(f"New message from {sender}: {message_body}")
             save_message(content=message_body, sender=sender, room=room_id)
-            if event["content"]["body"] and username not in event["sender"]:
-                now = datetime.now().strftime("%H:%M:%S")
-                if message == "start":
-                    current_question_id = 0
-                    # room.send_text(
-                    #     "{}-{}".format(now, questions[current_question_id]))
-                else:
-                    try:
-                        if answers[current_question_id] and message in answers[current_question_id]:
-                            current_question_id = next_question[current_question_id][
-                                answers[current_question_id].index(message)
-                            ]
-                            room.send_text(f"{now}-{questions[current_question_id]}")
-                            save_message(content=questions[current_question_id], sender="bot", room=room_id)
-                        elif next_question[current_question_id]:
-                            current_question_id = next_question[current_question_id]
+            if event["content"]["body"]:
+                if event.get("content") and event["content"].get("sender") and event["content"]["sender"] == "user":
+                    now = datetime.now().strftime("%H:%M:%S")
+                    if message == "start":
+                        current_question_id = 0
+                    else:
+                        try:
+                            if answers:
+                                if answers[current_question_id] and message in answers[current_question_id]:
+                                    current_question_id = next_question[current_question_id][
+                                        answers[current_question_id].index(message)
+                                    ]
+                                    room.send_text(f"{now}-{questions[current_question_id]}")
+                                    save_message(content=questions[current_question_id], sender="bot", room=room_id)
+                            elif next_question[current_question_id]:
+                                current_question_id = next_question[current_question_id]
 
-                            room.send_text(f"{now}-{questions[current_question_id[0]]}")
-                            if next_question[current_question_id]:
-                                room.send_text("Your order was created successful")
-                                save_message(content=questions[current_question_id[0]], sender="bot", room=room_id)
-                    except NameError:
-                        print(NameError)
+                                room.send_text(f"{now}-{questions[current_question_id[0]]}")
+                                if next_question[current_question_id[0]]:
+                                    room.send_text("Your order was created successful")
+                                    save_message(content=questions[current_question_id[0]], sender="bot", room=room_id)
+                        except NameError:
+                            print(NameError)
 
     room.add_listener(on_message, event_type="m.room.message")
 
