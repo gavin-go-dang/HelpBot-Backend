@@ -1,4 +1,5 @@
 from .answer_api import AnswerAPI
+from .conversation_detail_api import CombinedInfoAPIView
 from .message_api import MessageAPI
 from .message_in_year import MessageReceivedPerMonthAPI
 from .message_per_week import MessageReceivedPerWeekAPI
