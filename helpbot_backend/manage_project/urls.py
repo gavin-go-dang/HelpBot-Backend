@@ -4,7 +4,9 @@ from rest_framework.routers import DefaultRouter
 from helpbot_backend.manage_project.views import (
     AnswerAPI,
     CombinedInfoAPIView,
+    GetRoomChat,
     MessageAPI,
+    MessageConversation,
     MessageReceivedPerMonthAPI,
     MessageReceivedPerWeekAPI,
     ProjectAPI,
@@ -17,6 +19,8 @@ urlpatterns = [
     path("message-count/", MessageReceivedPerWeekAPI.as_view(), name="record_count_api"),
     path("message-count-per-month/", MessageReceivedPerMonthAPI.as_view(), name="record_count_per_month_api"),
     path("conversations/<int:id>/", CombinedInfoAPIView.as_view(), name="conversation"),
+    path("message-conversation/<int:id>/", MessageConversation.as_view(), name="message-conversation"),
+    path("get-room-chat/<int:id>/", GetRoomChat.as_view(), name="get-room"),
 ]
 
 router = DefaultRouter()
