@@ -1,4 +1,5 @@
 from .answer_api import AnswerAPI
+from .conversation import ConversationAPI
 from .conversation_detail_api import CombinedInfoAPIView
 from .get_room import GetRoomChat
 from .message_api import MessageAPI

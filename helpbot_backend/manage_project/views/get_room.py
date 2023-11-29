@@ -7,8 +7,15 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from ..models import Conversation
 from ..models.chat_bot import turn_on_chatbot
 from ..models.project import Project
+
+
+def save_conversation(idx_conv, room, project):
+    new_conversation = Conversation(idx=idx_conv, room=room, project=project)
+    new_conversation.save()
+    return "Conversation was saved"
 
 
 class GetRoomChat(APIView):
@@ -37,8 +44,12 @@ class GetRoomChat(APIView):
                 id_list = self.id_room_list
             id_room = id_list.pop()
             id_conversation = re.sub(r"[^\d]", "", str(datetime.now()))
-            script = Project.objects.get(id=id).script_QA
-            chatbot_thread = threading.Thread(target=turn_on_chatbot, args=(id_room, script, id_conversation))
+            project = Project.objects.get(id=id)
+            save_conversation(idx_conv=id_conversation, room=id_room, project=project)
+
+            chatbot_thread = threading.Thread(
+                target=turn_on_chatbot, args=(id_room, project.script_QA, id_conversation)
+            )
             chatbot_thread.start()
 
             with open(self.path_id_file, "w") as f:

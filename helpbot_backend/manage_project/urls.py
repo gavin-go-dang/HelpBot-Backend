@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 from helpbot_backend.manage_project.views import (
     AnswerAPI,
     CombinedInfoAPIView,
+    ConversationAPI,
     GetRoomChat,
     MessageAPI,
     MessageConversation,
@@ -29,6 +30,7 @@ router.register("project", ProjectAPI, basename="project")
 router.register("answer", AnswerAPI, basename="answer")
 router.register("question", QuestionAPI, basename="question")
 router.register("message", MessageAPI, basename="message")
+router.register("conversation", ConversationAPI, basename="message")
 
 urlpatterns += [
     path("", include(router.urls)),
