@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 from django.conf import settings
@@ -62,9 +63,13 @@ def turn_on_chatbot(room_id, script, id_conversation):
                             print("An error occurred:", error)
 
     room.add_listener(on_message, event_type="m.room.message")
-
     client.start_listener_thread()
-
-    input("Press Enter to stop...")
-
+    timeout = 300  # please change on stagging
+    while timeout:
+        timeout -= 1
+        print(timeout)
+        time.sleep(1)
+    room.send_text("Your conversation has been expired!")
+    client.stop_listener_thread()
+    print("chat stop")
     client.logout()
