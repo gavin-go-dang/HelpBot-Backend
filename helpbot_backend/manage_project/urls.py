@@ -13,6 +13,7 @@ from helpbot_backend.manage_project.views import (
     ProjectAPI,
     QuestionAPI,
     RoomAPI,
+    StyleConversation,
 )
 
 app_name = "manage_project"
@@ -22,6 +23,7 @@ urlpatterns = [
     path("conversations/<int:id>/", CombinedInfoAPIView.as_view(), name="conversation"),
     path("message-conversation/<int:id>/", MessageConversation.as_view(), name="message-conversation"),
     path("get-room-chat/<int:id>/", GetRoomChat.as_view(), name="get-room"),
+    path("style-conversation/<int:id>", StyleConversation.as_view(), name="style_conversation"),
 ]
 
 router = DefaultRouter()

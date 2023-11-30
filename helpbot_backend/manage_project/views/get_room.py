@@ -51,7 +51,6 @@ class GetRoomChat(APIView):
                 target=turn_on_chatbot, args=(id_room, project.script_QA, id_conversation)
             )
             chatbot_thread.start()
-
             with open(self.path_id_file, "w") as f:
                 json.dump(id_list, f)
 

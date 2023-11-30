@@ -2,6 +2,7 @@ from .answer_api import AnswerAPI
 from .conversation import ConversationAPI
 from .conversation_detail_api import CombinedInfoAPIView
 from .get_room import GetRoomChat
+from .get_style_conversation import StyleConversation
 from .message_api import MessageAPI
 from .message_conversation import MessageConversation
 from .message_in_year import MessageReceivedPerMonthAPI
