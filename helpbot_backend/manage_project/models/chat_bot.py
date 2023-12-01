@@ -38,11 +38,16 @@ def turn_on_chatbot(room_id, script, id_conversation):
             sender = event["sender"]
             message_body = event["content"]["body"]
             message = message_body.split(":")[-1]
+            now = datetime.now().strftime("%H:%M:%S")
             print(f"New message from {sender}: {message_body}")
-            save_message(content=message_body, sender=sender, room=room_id, id_conversation=id_conversation)
+            if message == "start":
+                save_message(
+                    content=f"{now}-{questions[0]}", sender=sender, room=room_id, id_conversation=id_conversation
+                )
+            else:
+                save_message(content=message_body, sender=sender, room=room_id, id_conversation=id_conversation)
             if event["content"]["body"]:
                 if event.get("content") and event["content"].get("sender") and event["content"]["sender"] == "user":
-                    now = datetime.now().strftime("%H:%M:%S")
                     if message == "start":
                         current_question_id = 0
                     else:
