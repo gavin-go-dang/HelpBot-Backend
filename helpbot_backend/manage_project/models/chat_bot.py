@@ -56,7 +56,6 @@ def turn_on_chatbot(room_id, script, id_conversation):
                                 current_question_id = next_question[current_question_id][
                                     answers[current_question_id].index(message)
                                 ]
-                                print(current_question_id)
                                 room.send_text(f"{now}-{questions[current_question_id]}")
                             elif next_question[current_question_id]:
                                 current_question_id = next_question[current_question_id][0]
@@ -72,7 +71,6 @@ def turn_on_chatbot(room_id, script, id_conversation):
     timeout = 300  # please change on stagging
     while timeout:
         timeout -= 1
-        print(timeout)
         time.sleep(1)
     room.send_text("Your conversation has been expired!")
     client.stop_listener_thread()

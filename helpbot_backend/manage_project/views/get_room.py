@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 import threading
 from datetime import datetime
@@ -16,6 +17,11 @@ def save_conversation(idx_conv, room, project):
     new_conversation = Conversation(idx=idx_conv, room=room, project=project)
     new_conversation.save()
     return "Conversation was saved"
+
+
+logging.basicConfig(
+    filename="./log_filename.log", format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 class GetRoomChat(APIView):
@@ -46,7 +52,7 @@ class GetRoomChat(APIView):
             id_conversation = re.sub(r"[^\d]", "", str(datetime.now()))
             project = Project.objects.get(id=id)
             save_conversation(idx_conv=id_conversation, room=id_room, project=project)
-
+            logging.info("New conversation was created.")
             chatbot_thread = threading.Thread(
                 target=turn_on_chatbot, args=(id_room, project.script_QA, id_conversation)
             )
