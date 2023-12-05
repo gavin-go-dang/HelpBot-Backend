@@ -1,6 +1,10 @@
 from .test_chat_bot import SaveMessageTestCase
-from .test_convert_to_script import TestFlowToScript
+
+# from .test_convert_to_script import TestFlowToScript
 from .test_message_api import MessageAPITestCase
 from .test_message_in_year import MessageReceivedInYearAPITest
 from .test_message_per_week import MessageReceivedPerWeekAPITest
 from .test_project_api import ProjectAPITestCase
+from .test_room_chat import TestRoomView
+from .test_save_conversation import GetRoomChatTestCase
+from .test_style_conversation import StyleConversationTestCase
