@@ -7,7 +7,6 @@ from ..models import Conversation, Message
 
 class CombinedInfoAPIView(APIView):
     def get(self, request, id, *args, **kwargs):
-        # breakpoint()
         conversation = Conversation.objects.filter(project__id=id).values("idx")
         data = (
             Message.objects.exclude(conversation="")
