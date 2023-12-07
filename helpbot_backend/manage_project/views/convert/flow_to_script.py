@@ -7,16 +7,16 @@ def flow_to_script(JSON1):
     def get_question(node):
         # breakpoint()
         if node["type"] == "choiceUpdater":
-            return json.loads(node["data"]["question"])["question"]["question"]
+            return node["data"]["question"]["question"]["question"]
         else:
-            return json.loads(node["data"]["question"])["question"]
+            return node["data"]["question"]["question"]
 
     def get_answer(node):
         if node["type"] == "choiceUpdater":
             return [
-                json.loads(node["data"]["question"])["question"]["answer1"],
-                json.loads(node["data"]["question"])["question"]["answer2"],
-                json.loads(node["data"]["question"])["question"]["answer3"],
+                node["data"]["question"]["question"]["answer1"],
+                node["data"]["question"]["question"]["answer2"],
+                node["data"]["question"]["question"]["answer3"],
             ]
 
         else:
