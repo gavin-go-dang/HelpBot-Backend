@@ -53,4 +53,4 @@ class AnswerAdmin(admin.ModelAdmin):
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ("content", "sender", "room", "updated_at", "created_at")
-    fieldsets = [(None, {"fields": [("content"), ("sender"), ("room")]})]
+    fieldsets = [(None, {"fields": [("content"), ("sender"), ("room"), ("conversation")]})]
